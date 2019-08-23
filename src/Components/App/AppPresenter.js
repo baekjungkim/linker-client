@@ -34,7 +34,7 @@ function AppPresenter() {
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/user" component={User} />
-            <Route component={NoMatch} />
+            <Route path="*" component={NoMatch} />
           </Switch>
         </Container>
       </ThemeProvider>

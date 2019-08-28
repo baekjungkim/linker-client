@@ -15,12 +15,28 @@ class AppContainer extends Component {
     this.setState({
       logged: false
     });
+    localStorage.removeItem("token");
+  };
+
+  _onModal = () => {
+    this.setState({
+      modal: true
+    });
+  };
+
+  _offModal = () => {
+    this.setState({
+      modal: false
+    });
   };
 
   state = {
-    logged: false,
+    modal: false,
     onLogin: this._onLogin,
-    onLogout: this._onLogout
+    onLogout: this._onLogout,
+    onModal: this._onModal,
+    offModal: this._offModal,
+    route: ""
   };
 
   render() {

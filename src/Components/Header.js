@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Flex, { FlexItem } from "styled-flex-component";
 import { Link } from "react-router-dom";
-import Modal from "react-responsive-modal";
 import Store from "store";
-import Login from "Components/Login";
 
 const Header = styled.header`
   height: 80px;
@@ -24,42 +22,41 @@ const Header = styled.header`
   }
 `;
 
-const HeaderPresenter = () => {
-  const [open, setOpen] = useState(false);
-
+export default props => {
   return (
     <Header>
       <Flex full justifyBetween alignCenter>
         <FlexItem order="1">LinkerImage</FlexItem>
         <FlexItem order="2">
           <Link to="/">홈</Link>
-          <Link to="/about">소개</Link>
           <Store.Consumer>
             {store =>
-              store.logged ? (
-                <Link to="/user">내정보</Link>
+              props.logged ? (
+                <>
+                  <Link to="/about">소개</Link>
+                  <Link to="/user">내정보</Link>
+                  <Link to="#">로그아웃</Link>
+                </>
               ) : (
-                <Link to="#" onClick={() => setOpen(true)}>
-                  로그인
-                </Link>
+                <>
+                  <Link
+                    to="#"
+                    onClick={() => {
+                      store.route = "about";
+                      store.onModal();
+                    }}
+                  >
+                    소개
+                  </Link>
+                  <Link to="#" onClick={() => store.onModal()}>
+                    로그인
+                  </Link>
+                </>
               )
             }
           </Store.Consumer>
-          <Modal
-            open={open}
-            onClose={() => setOpen(false)}
-            center
-            closeOnOverlayClick={false}
-            focusTrapped={false}
-          >
-            <Store.Consumer>
-              {store => <Login onLogin={store.onLogin} setOpen={setOpen} />}
-            </Store.Consumer>
-          </Modal>
         </FlexItem>
       </Flex>
     </Header>
   );
 };
-
-export default HeaderPresenter;

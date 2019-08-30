@@ -18,7 +18,8 @@ const Input = ({
   value,
   onChange,
   type = "text",
-  className
+  className,
+  pattern
 }) => (
   <Container
     className={className}
@@ -27,6 +28,7 @@ const Input = ({
     value={value}
     onChange={onChange}
     type={type}
+    pattern={pattern}
   />
 );
 
